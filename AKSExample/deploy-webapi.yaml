@@ -17,11 +17,16 @@ spec:
     spec:
       containers:
         - name: webapi
-          image: exploredockerrahul.azurecr.io/aksexample:v2
+          image: exploredockerrahul.azurecr.io/aksexample:v3
           imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP
+          env:
+            - name: ASPNETCORE_URLS
+              value: http://+:80
+            - name: service2baseuri
+              value: http://Service2/service2/
       imagePullSecrets:
         - name: acr-secret
 ---

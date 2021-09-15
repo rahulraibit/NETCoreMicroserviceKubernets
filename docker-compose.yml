@@ -6,3 +6,10 @@ services:
     build:
       context: .
       dockerfile: AKSExample/Dockerfile
+
+  service2:
+    image: ${DOCKER_REGISTRY-}service2
+    build:
+      context: .
+      dockerfile: Service2/Dockerfile
+

@@ -4,5 +4,13 @@ services:
   aksexample:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - service2baseuri=http://Service2/service2/
     ports:
       - "80"
+
+  service2:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+
