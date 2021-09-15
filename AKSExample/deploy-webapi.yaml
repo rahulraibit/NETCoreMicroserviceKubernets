@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
         - name: webapi
-          image: exploredockerrahul.azurecr.io/aksexample:v1
-          imagePullPolicy: IfNotPresent
+          image: exploredockerrahul.azurecr.io/aksexample:v2
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP

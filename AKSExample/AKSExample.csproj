@@ -10,14 +10,21 @@
     <None Remove="deploy-webapi.yml" />
     <None Remove="deploy-webapi.yaml" />
     <None Remove="Important.txt" />
+    <None Remove="Microsoft.EntityFrameworkCore" />
+    <None Remove="Microsoft.EntityFrameworkCore.Tools" />
+    <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.10">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.10" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="deploy-webapi.yaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Important.txt" />
+    <Content Include="Important.txt" />
   </ItemGroup>
 </Project>

@@ -12,3 +12,11 @@
 10. az aks get-credentials --resource-group myResourceGroup --name explore-docker-aks (get the AKS Cluster credential in local)
 11. az aks update --name explore-docker-aks --resource-group myResourceGroup --attach-acr exploredockerrahul (attach ACR and cluster)
 12. kubectl apply -f deploy-webapi.yaml (Deploy app on kubernets)
+
+
+Helpers:
+
+1. kubectl get pods
+2. kubectl describe pod {pod-name}
+3. kubectl logs {pod-name}
+
