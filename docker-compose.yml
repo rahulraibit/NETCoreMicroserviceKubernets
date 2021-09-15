@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  aksexample:
+    image: ${DOCKER_REGISTRY-}aksexample
+    build:
+      context: .
+      dockerfile: AKSExample/Dockerfile

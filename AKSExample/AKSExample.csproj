@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <DockerComposeProjectPath>../docker-compose.dcproj</DockerComposeProjectPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Swashbuckle.AspNetCore" />
+    <None Remove="deploy-webapi.yml" />
+    <None Remove="deploy-webapi.yaml" />
+    <None Remove="Important.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="deploy-webapi.yaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Important.txt" />
+  </ItemGroup>
+</Project>

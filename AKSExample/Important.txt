@@ -1,0 +1,14 @@
+﻿1. az login
+2. az group create --name myResourceGroup --location eastus (Create Resource Group)
+3. az provider show -n Microsoft.OperationsManagement -o table  (Enable Logs)                                       
+   az provider show -n Microsoft.OperationalInsights -o table
+4. az acr create --name exploredockerrahul --resource-group myResourceGroup --sku basic --admin-enabled (Create ACR - azure container registery)
+5. kubectl create secret docker-registry acr-secret  --docker-server=exploredockerrahul.azurecr.io --docker-username=exploredockerrahul --docker-password=PyQhVYnkBkhQmt=EXPpdAf7mYpFsYxic (Create secret for access for image pull)
+5. az acr list --resource-group myResourceGroup --query "[].{acrLoginServer:loginServer}" --output table (query the ACR)
+6. docker tag aksexample:latest exploredockerrahul.azurecr.io/aksexample:v1 (tag local image with acr repo)
+7. az acr login --name exploredockerrahul (login to acr)
+8. docker push exploredockerrahul.azurecr.io/aksexample:v1 (Push the Image)
+9. az aks create --resource-group MyResourceGroup --name explore-docker-aks --node-vm-size Standard_B2s --node-count 1 --generate-ssh-keys (Create AKS Cluster)
+10. az aks get-credentials --resource-group myResourceGroup --name explore-docker-aks (get the AKS Cluster credential in local)
+11. az aks update --name explore-docker-aks --resource-group myResourceGroup --attach-acr exploredockerrahul (attach ACR and cluster)
+12. kubectl apply -f deploy-webapi.yaml (Deploy app on kubernets)
