@@ -20,3 +20,26 @@ Helpers:
 2. kubectl describe pod {pod-name}
 3. kubectl logs {pod-name}
 
+
+Notes for database setup:
+
+1. For Azure Database - Set local IP for access
+2. Vnet setup - prefered
+3. Allow all azure resource to access
+
+
+Notes for Envrionment variable:
+
+1. Use appsettings.json for local testing.
+2. Do docker test first, add environment varibales in docker compose
+3. Do AKS deployment and do testing
+
+
+Important Links -
+
+1. https://levelup.gitconnected.com/docker-environment-variables-appsettings-json-net-bdac052bf3db
+2. https://docs.microsoft.com/en-us/dotnet/architecture/containerized-lifecycle/design-develop-containerized-apps/build-aspnet-core-applications-linux-containers-aks-kubernetes
+3. https://www.youtube.com/watch?v=zg1T72SO-6g
+4. https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-app
+5. https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-kubernetes
+6. https://docs.microsoft.com/en-us/dotnet/architecture/cloud-native/service-to-service-communication

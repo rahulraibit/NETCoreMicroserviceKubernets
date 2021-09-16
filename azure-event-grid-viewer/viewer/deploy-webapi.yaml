@@ -1,0 +1,42 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: viewer
+  labels:
+    app: weather-forecast
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: viewer
+  template:
+    metadata:
+      labels:
+        app: weather-forecast
+        service: viewer
+    spec:
+      containers:
+        - name: viewer
+          image: exploredockerrahul.azurecr.io/viewer:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      imagePullSecrets:
+        - name: acr-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: viewer
+  labels:
+    app: weather-forecast
+    service: viewer
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    service: viewer
