@@ -34,6 +34,10 @@ Notes for Envrionment variable:
 2. Do docker test first, add environment varibales in docker compose
 3. Do AKS deployment and do testing
 
+Event Grid Communication:
+
+- https://github.com/Azure-Samples/azure-event-grid-viewer
+
 
 Important Links -
 
@@ -43,3 +47,7 @@ Important Links -
 4. https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-app
 5. https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-kubernetes
 6. https://docs.microsoft.com/en-us/dotnet/architecture/cloud-native/service-to-service-communication
+7. https://chlee.co/getting-started-with-azure-service-bus-with-masstransit/
+
+Azure Devops Pipeline for AKS:
+https://www.youtube.com/watch?v=U6n6NzGKyRI

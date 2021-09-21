@@ -5,6 +5,7 @@
     <DockerComposeProjectPath>../docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Service2' " />
   <ItemGroup>
     <None Remove="deploy-webapi.yaml" />
   </ItemGroup>

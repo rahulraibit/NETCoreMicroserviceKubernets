@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using models;
 using RestSharp;
 
 namespace AKSExample.Controllers
@@ -22,11 +25,19 @@ namespace AKSExample.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IConfiguration _configuration;
+        private readonly IPublishEndpoint _publishEndpoint;
+        private readonly ISendEndpointProvider _serviceEndPointProvider;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IConfiguration configuration)
+        public WeatherForecastController(
+            ILogger<WeatherForecastController> logger,
+            IConfiguration configuration,
+            IPublishEndpoint publishEndpoint,
+            ISendEndpointProvider sendEndpointProvider)
         {
             _logger = logger;
             _configuration = configuration;
+            _publishEndpoint = publishEndpoint;
+            _serviceEndPointProvider = sendEndpointProvider;
         }
 
         [HttpGet]
@@ -68,6 +79,36 @@ namespace AKSExample.Controllers
             body = Newtonsoft.Json.JsonConvert.SerializeObject(data);
             request.AddParameter("application/json", body, ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
+        }
+
+        [HttpGet]
+        [Route("servicebusqueuesender")]
+        public async Task SendUsingAzureServiceBusQeue()
+        {
+            try
+            {
+                var sendEndpoint =
+                await _serviceEndPointProvider.GetSendEndpoint(
+                    new Uri("sb://test2service.servicebus.windows.net/test"));
+                await sendEndpoint.Send<Test>(new Test { message = "Hi This message from sender" });
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
+        [HttpGet]
+        [Route("servicebusTopicsender")]
+        public async Task SendUsingAzureServiceBusTopic()
+        {
+            try
+            {
+                await _publishEndpoint.Publish<Test>(new Test { message = "Hi This message from sender" });
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }

@@ -10,8 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using models;
+using RabbitMQRevieverExample;
 
-namespace AKSExample
+namespace RabbitMQExample
 {
     public class Startup
     {
@@ -25,21 +27,27 @@ namespace AKSExample
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+          
             services.AddMassTransit(x =>
-            {
-                x.UsingAzureServiceBus((context, cfg) =>
-                {
-                    cfg.Host("Endpoint=sb://test2service.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=3tnzDHoxSDP/2hsTZGUmNkbLJq42m2SScKvBFUXo/QU=");
-                });
-            });
-
-            services.AddMassTransitHostedService();
-
+              {
+                  x.UsingAzureServiceBus((context, cfg) =>
+                  {
+                      cfg.Host("Endpoint=sb://test2service.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=3tnzDHoxSDP/2hsTZGUmNkbLJq42m2SScKvBFUXo/QU=");
+                      // Queue implementation
+                      cfg.ReceiveEndpoint("test", endpoint =>
+                      {
+                          endpoint.ConfigureConsumer<MessageConsumer>(context);
+                      });
+                      // Topic Implementation
+                      cfg.SubscriptionEndpoint("test", "topicname", endpoint =>
+                      {
+                          endpoint.ConfigureConsumer<MessageConsumer>(context);
+                      });
+                  });
+                  x.AddConsumer<MessageConsumer>();
+              });
+            services.AddMassTransitHostedService(true);
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "AKS Example", Version = "v1" });
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,8 +55,6 @@ namespace AKSExample
         {
             if (env.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AKS Example"));
                 app.UseDeveloperExceptionPage();
             }
 
