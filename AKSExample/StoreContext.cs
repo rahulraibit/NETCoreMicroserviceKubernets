@@ -14,7 +14,7 @@ namespace AKSExample
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseSqlServer("Server=localhost;Initial Catalog=CodeFirst; user id = SA; Password=<YourStrong@Passw0rd>");
-            optionsBuilder.UseSqlServer("Server=tcp:akstest.database.windows.net,1433;Initial Catalog=test;Persist Security Info=False;User ID=sa-admin;Password=test@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            optionsBuilder.UseSqlServer("");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
